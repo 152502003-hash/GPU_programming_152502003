@@ -1,12 +1,10 @@
+
 #include <iostream>
 #include <cuda_runtime.h>
-
-
 int getCoresPerSM(int major, int minor) {
     // Defines cores per SM based on architecture generation
     switch (major) {
-
-        case 2: // Fermi
+ case 2: // Fermi
             return (minor == 1) ? 48 : 32;
         case 3: // Kepler
             return 192;
@@ -28,8 +26,6 @@ int getCoresPerSM(int major, int minor) {
             return 128; // Standard fallback for future architectures
     }
 }
-
-
 int main() {
     int deviceCount = 0;
     
@@ -57,14 +53,11 @@ int main() {
         std::cout << "  Cores Per SM:                " << getCoresPerSM(prop.major, prop.minor) << std::endl;
         std::cout << "  Total Cores:                 " << prop.multiProcessorCount*getCoresPerSM(prop.major, prop.minor) << std::endl;
         std::cout << "  Max Threads Per Block:       " << prop.maxThreadsPerBlock << std::endl;
-        std::cout << "  Shared Memory Per Block :    " << prop.sharedMemPerBlock / 1024 << " KB" << std::endl;
+        std::cout << "  Shared Memory Per Block :     " << prop.sharedMemPerBlock / 1024 << " KB" << std::endl;
         std::cout << "  Warp Size:                   " << prop.warpSize << std::endl;
-        std::cout << "  Max Threads Per SM:          "  << prop.maxThreadsPerMultiProcessor << "\n";
-        std::cout << "  Shared Memory Per SM:        "  << prop.sharedMemPerMultiprocessor / 1024 << " KB\n";
-
         // Registers
-        std::cout << "Registers Per Block:         "<< prop.regsPerBlock << "\n";
-        std::cout << "Registers Per SM:            "<< prop.regsPerMultiprocessor << "\n";
+        std::cout << " Registers Per Block:         "<< prop.regsPerBlock << "\n";
+        std::cout << " Registers Per SM:            "<< prop.regsPerMultiprocessor << "\n";
 
         // Cache
         std::cout << "L2 Cache Size:               "<< prop.l2CacheSize / 1024 << " KB\n";
@@ -74,12 +67,8 @@ int main() {
         std::cout << "Max Block Dimension Y:       "<< prop.maxThreadsDim[1] << "\n";
         std::cout << "Max Block Dimension Z:       "<< prop.maxThreadsDim[2] << "\n";
 
-
         std::cout << std::endl;
-        
     }
 
     return 0;
 }
-
-
